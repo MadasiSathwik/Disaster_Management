@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Search Victim</h2>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Victim ID</label>
+        <input type="text" class="form-control" name="victim_id" required>
+    </div>
+    <button class="btn btn-primary">Search</button>
+</form>
+
+{% if victim %}
+    <h3 class="mt-4">Details</h3>
+    <ul class="list-group">
+        <li class="list-group-item">Name: {{ victim.name }}</li>
+        <li class="list-group-item">Age: {{ victim.age }}</li>
+        <li class="list-group-item">Health: {{ victim.health_condition }}</li>
+        <li class="list-group-item">Food Received: {{ 'Yes' if victim.food_received else 'No' }}</li>
+        <li class="list-group-item">Medical Kit Received: {{ 'Yes' if victim.medical_kit_received else 'No' }}</li>
+    </ul>
+    {% if camp %}
+        <h4 class="mt-2">Camp</h4>
+        <ul class="list-group">
+            <li class="list-group-item">Camp ID: {{ camp.camp_id }}</li>
+            <li class="list-group-item">Location: {{ camp.location }}</li>
+        </ul>
+    {% endif %}
+{% endif %}
+{% endblock %}

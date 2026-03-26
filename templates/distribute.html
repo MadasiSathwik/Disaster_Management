@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<h2>Distribute Resources</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Victim ID</label>
+    <input type="text" class="form-control" name="victim_id" required />
+  </div>
+  <button class="btn btn-primary">Distribute</button>
+</form>
+{% endblock %}

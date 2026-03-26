@@ -1,0 +1,6 @@
+Total camps: 8
+Total victims: 1
+Camp with highest occupancy: CAMP_004 (1)
+Total food distributed: 0
+Total medical kits distributed: 0
+Critical victims: 0

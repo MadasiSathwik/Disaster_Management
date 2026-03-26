@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+<div class="auth-container">
+  <h2 class="text-danger">Admin Login</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Admin Username</label>
+      <input type="text" class="form-control" name="username" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" required />
+    </div>
+    <button class="btn btn-danger">Enter</button>
+  </form>
+</div>
+{% endblock %}

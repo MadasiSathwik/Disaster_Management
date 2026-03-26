@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<h2 class="text-danger">Admin Dashboard</h2>
+<p>
+  Only accessible to administrator users. You can perform privileged actions
+  here.
+</p>
+<ul>
+  <li><a href="{{ url_for('camp.add_camp') }}">Add Camp</a></li>
+  <li><a href="{{ url_for('report.dashboard') }}">View Analytics</a></li>
+  <li><a href="{{ url_for('report.generate_report') }}">Generate Report</a></li>
+</ul>
+<p>
+  <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">Logout</a>
+</p>
+{% endblock %}

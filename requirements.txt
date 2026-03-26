@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+psycopg2-binary
+python-dotenv
+gunicorn
+werkzeug
+# TODO: add Flask-Migrate, Flask-Login, pytest, etc.

@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg border-danger">
+        <div class="card-header bg-danger text-white">
+          <h4 class="mb-0">🚨 Register Victim</h4>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            <div class="mb-3">
+              <label class="form-label fw-bold"
+                >Victim ID (Auto-Generated)</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="victim_id"
+                value="{{ auto_victim_id }}"
+                readonly
+                style="background-color: #f0f0f0"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Full Name *</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                placeholder="Enter full name"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Age *</label>
+              <input
+                type="number"
+                class="form-control"
+                name="age"
+                placeholder="Enter age"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Health Condition *</label>
+              <select class="form-select" name="health_condition" required>
+                <option value="">-- Select --</option>
+                <option value="Normal">🟢 Normal</option>
+                <option value="Critical">🔴 Critical</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Assign to Camp</label>
+              <select class="form-select" name="assigned_camp">
+                <option value="">-- Select Camp --</option>
+                {% for camp in camps %}
+                <option value="{{ camp.id }}">
+                  {{ camp.camp_id }} - {{ camp.location }} ({{
+                  camp.current_occupancy }}/{{ camp.max_capacity }})
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-danger btn-lg" type="submit">
+                📝 Register Victim
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

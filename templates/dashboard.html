@@ -1,0 +1,278 @@
+{% extends "base.html" %} {% block content %}
+<div class="container-fluid mt-4">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="text-danger fw-bold">
+        🚨 DISASTER RELIEF MANAGEMENT DASHBOARD
+      </h1>
+      <hr class="border-danger border-3" />
+    </div>
+  </div>
+
+  <!-- Key Metrics Row -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white shadow-lg">
+        <div class="card-body text-center">
+          <h3 class="display-4">{{ analytics.total_camps }}</h3>
+          <p class="card-title">Total Camps</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-danger text-white shadow-lg">
+        <div class="card-body text-center">
+          <h3 class="display-4">{{ analytics.total_victims }}</h3>
+          <p class="card-title">Total Victims</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-success text-white shadow-lg">
+        <div class="card-body text-center">
+          <h3 class="display-4">{{ analytics.victims_saved }}</h3>
+          <p class="card-title">Victims Saved</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-dark shadow-lg">
+        <div class="card-body text-center">
+          <h3 class="display-4">{{ analytics.critical_victims }}</h3>
+          <p class="card-title">Critical Cases</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Occupancy & Resources Row -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-lg border-info">
+        <div class="card-header bg-info text-white fw-bold">
+          📊 Camp Occupancy
+        </div>
+        <div class="card-body">
+          <p><strong>Total Capacity:</strong> {{ analytics.total_capacity }}</p>
+          <p>
+            <strong>Total Occupied:</strong> {{ analytics.total_occupancy }}
+          </p>
+          <div class="progress" style="height: 25px">
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: {{ analytics.occupancy_rate }}%"
+            >
+              {{ analytics.occupancy_rate }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-lg border-success">
+        <div class="card-header bg-success text-white fw-bold">
+          🍱 Resources Distributed
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Food Packets:</strong>
+            <span class="badge bg-success"
+              >{{ analytics.food_distributed }}</span
+            >
+          </p>
+          <p>
+            <strong>Medical Kits:</strong>
+            <span class="badge bg-danger"
+              >{{ analytics.medical_distributed }}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-lg border-warning">
+        <div class="card-header bg-warning text-dark fw-bold">
+          ⚠️ Highest Occupancy
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Camp:</strong> {{ analytics.camp_with_highest or "N/A" }}
+          </p>
+          <p><strong>Occupancy:</strong> {{ analytics.max_occupancy }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-secondary text-white fw-bold">
+          📈 Analytics Overview
+        </div>
+        <div class="card-body">
+          <canvas id="analyticsChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-secondary text-white fw-bold">
+          🏥 Health Status Distribution
+        </div>
+        <div class="card-body">
+          <canvas id="healthChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Camps Details Table -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-lg">
+        <div class="card-header bg-secondary text-white fw-bold">
+          🏕️ CAMPS DETAILS
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Camp ID</th>
+                <th>Location</th>
+                <th>Occupancy</th>
+                <th>% Full</th>
+                <th>Food Available</th>
+                <th>Medical Kits</th>
+                <th>Volunteers</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for camp in analytics.camp_details %}
+              <tr>
+                <td><strong>{{ camp.camp_id }}</strong></td>
+                <td>{{ camp.location }}</td>
+                <td>{{ camp.occupancy }}/{{ camp.capacity }}</td>
+                <td>
+                  <span class="badge bg-info"
+                    >{{ camp.occupancy_percentage }}%</span
+                  >
+                </td>
+                <td>
+                  <span class="badge bg-success"
+                    >{{ camp.food_available }}</span
+                  >
+                </td>
+                <td>
+                  <span class="badge bg-danger"
+                    >{{ camp.medical_available }}</span
+                  >
+                </td>
+                <td>
+                  <span class="badge bg-primary">{{ camp.volunteers }}</span>
+                </td>
+                <td>
+                  {% if camp.status == "Full" %}
+                  <span class="badge bg-danger">Full</span>
+                  {% else %}
+                  <span class="badge bg-success">Available</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Victims Details Table -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-lg">
+        <div class="card-header bg-secondary text-white fw-bold">
+          👥 REGISTERED VICTIMS
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Victim ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Health Status</th>
+                <th>Assigned Camp</th>
+                <th>Food Received</th>
+                <th>Medical Kit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for victim in analytics.victim_details %}
+              <tr>
+                <td><strong>{{ victim.victim_id }}</strong></td>
+                <td>{{ victim.name }}</td>
+                <td>{{ victim.age }}</td>
+                <td>
+                  {% if victim.health == "Critical" %}
+                  <span class="badge bg-danger">🔴 Critical</span>
+                  {% else %}
+                  <span class="badge bg-success">🟢 Normal</span>
+                  {% endif %}
+                </td>
+                <td>{{ victim.camp }}</td>
+                <td>{{ victim.food_received }}</td>
+                <td>{{ victim.medical_received }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Analytics Chart
+  const ctx = document.getElementById("analyticsChart").getContext("2d");
+  new Chart(ctx, {
+      type: "bar",
+      data: {
+          labels: ["Camps", "Victims", "Food Distributed", "Medical Kits", "Saved"],
+          datasets: [{
+              label: "Disaster Relief Statistics",
+              data: [{{ analytics.total_camps }}, {{ analytics.total_victims }}, {{ analytics.food_distributed }}, {{ analytics.medical_distributed }}, {{ analytics.victims_saved }}],
+              backgroundColor: ["#007bff", "#dc3545", "#ffc107", "#28a745", "#17a2b8"]
+          }]
+      },
+      options: {
+          responsive: true,
+          plugins: {
+              legend: { display: true }
+          }
+      }
+  });
+
+  // Health Status Chart
+  const healthCtx = document.getElementById("healthChart").getContext("2d");
+  new Chart(healthCtx, {
+      type: "doughnut",
+      data: {
+          labels: ["Normal", "Critical"],
+          datasets: [{
+              data: [{{ analytics.normal_victims }}, {{ analytics.critical_victims }}],
+              backgroundColor: ["#28a745", "#dc3545"]
+          }]
+      },
+      options: {
+          responsive: true
+      }
+  });
+</script>
+{% endblock %}

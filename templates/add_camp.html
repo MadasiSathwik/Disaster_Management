@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+<h2>Add Camp</h2>
+<form method="post">
+  <div class="mb-3">
+    <label for="camp_id" class="form-label">Camp ID</label>
+    <input type="text" class="form-control" name="camp_id" required />
+  </div>
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <input type="text" class="form-control" name="location" required />
+  </div>
+  <div class="mb-3">
+    <label for="max_capacity" class="form-label">Max Capacity</label>
+    <input type="number" class="form-control" name="max_capacity" required />
+  </div>
+  <div class="mb-3">
+    <label for="available_food_packets" class="form-label">Food Packets</label>
+    <input type="number" class="form-control" name="available_food_packets" />
+  </div>
+  <div class="mb-3">
+    <label for="available_medical_kits" class="form-label">Medical Kits</label>
+    <input type="number" class="form-control" name="available_medical_kits" />
+  </div>
+  <div class="mb-3">
+    <label for="volunteers" class="form-label">Volunteers</label>
+    <input type="number" class="form-control" name="volunteers" />
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
